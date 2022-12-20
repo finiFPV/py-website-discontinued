@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/default.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/login.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}">
+    </head>
+    <body>
+        <div id="main">
+            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off">
+                <h1>Login</h1>
+                <label for="user" class="subtitle" id="aa">Username</label>
+                <input type="text" name="user" class="input_cred" id="a" oninput="checkinput()"><br>
+                <label for="pass" class="subtitle" id="bb">Password</label>
+                <input type="password" name="pass" class="input_cred" id="b" oninput="checkinput()"><br>
+                <a href="{{ url_for('app.handle_data') }}">Forgot Username or Password</a><br>
+                <input type="submit" name="method" value="Login" id="submit" disabled>
+                <input type="submit" name="method" value="Register" id="register">
+            </form>
+        </div>
+        <script>
+            function checkinput() {
+                const elements = document.getElementsByClassName("input_cred")
+                const button = document.getElementById("submit")
+                if (elements[0].value.length > 0 && elements[1].value.length > 0) {
+                    button.removeAttribute('disabled');
+                } else {
+                    button.setAttribute('disabled', '');
+                }
+            }
+        </script>
+    </body>
+</html>
