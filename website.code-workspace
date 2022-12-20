@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Avanced-Login"
+		},
+		{
+			"path": "../../../Ubuntu Server/Docker/mongodb"
+		}
+	],
+	"settings": {}
+}
