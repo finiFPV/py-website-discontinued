@@ -1,5 +1,6 @@
 #main {
     width: fit-content;
+    justify-content: center
 }
 h1 {
     color: #ffffff;
@@ -57,4 +58,22 @@ a {
     position: relative;
     bottom: 17px;
     color: #38d39fd8;
+}
+.error {
+    color: #ff4b4b;
+    text-align: center;
+    text-shadow: 0 0 15px #ff4b4bb4;
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    width: calc(100% - 50px);
+}
+.success {
+    color: #00ffaa;
+    text-align: center;
+    text-shadow: 0 0 15px #00ffaa93;
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    width: calc(100% - 50px);
 }
