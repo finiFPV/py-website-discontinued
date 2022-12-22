@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/default.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/login.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/register.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}">
+    </head>
+    <body>
+        <div id="main">
+            <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                <h1>Register</h1>
+                <label for="user" class="subtitle" id="aa">Username</label>
+                <input type="text" name="user" class="input_cred" id="a" oninput="checkInput()"><br>
+                <label for="pass" class="subtitle" id="bb">Password</label>
+                <input type="password" name="pass" class="input_cred" id="b" oninput="checkInput()"><br>
+                <input type="submit" name="method" value="Register Now" id="register" disabled>
+                <input type="submit" name="method" value="Back" id="submit">
+            </form>
+        </div>
+        <script>
+            var has_spaces = false
+            function displayError(error, id) {
+                let divChild = document.createElement("div");
+                let target = document.getElementById("main");
+                divChild.innerHTML = error;
+                divChild.className = "error";
+                divChild.id = id;
+                const targetStyle = getComputedStyle(target);
+                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                target.appendChild(divChild);
+            }
+            function checkInput() {
+                const elements = document.getElementsByClassName("input_cred")
+                const button = document.getElementById("register")
+                const errorDiv = document.getElementById('user_has_spaces')
+                if (elements[0].value.length > 0 && elements[1].value.length > 0) {
+                    button.removeAttribute('disabled');
+                } else {
+                    button.setAttribute('disabled', '');
+                }
+                if (elements[0].value.includes(' ') == true && errorDiv == null) {
+                    displayError("Username can't contain spaces!", 'user_has_spaces')
+                    has_spaces = true
+                    button.setAttribute('disabled', '');
+                } else if (has_spaces == true && elements[0].value.includes(' ') == false) {
+                    has_spaces = false
+                    if (elements[0].value.length > 0 && elements[1].value.length > 0) {
+                        button.removeAttribute('disabled');
+                    }
+                    errorDiv.parentNode.removeChild(errorDiv);
+                }
+            };
+            var error = '{{error}}';
+            if (error !== 'None') {
+                displayError(error, 'outer_error')
+            };
+            var success = '{{success}}';
+            if (success !== 'None') {
+                let divChild = document.createElement("div");
+                let target = document.getElementById("main");
+                divChild.innerHTML = success;
+                divChild.className = "success";
+                const targetStyle = getComputedStyle(target);
+                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                target.appendChild(divChild);
+            };
+        </script>
+    </body>
+</html>

@@ -9,19 +9,19 @@
     </head>
     <body>
         <div id="main">
-            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off">
+            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
                 <h1>Login</h1>
                 <label for="user" class="subtitle" id="aa">Username</label>
-                <input type="text" name="user" class="input_cred" id="a" oninput="checkinput()"><br>
+                <input type="text" name="user" class="input_cred" id="a" oninput="checkInput()"><br>
                 <label for="pass" class="subtitle" id="bb">Password</label>
-                <input type="password" name="pass" class="input_cred" id="b" oninput="checkinput()"><br>
+                <input type="password" name="pass" class="input_cred" id="b" oninput="checkInput()"><br>
                 <a href="{{ url_for('app.handle_data') }}">Forgot Username or Password</a><br>
                 <input type="submit" name="method" value="Login" id="submit" disabled>
                 <input type="submit" name="method" value="Register" id="register">
             </form>
         </div>
         <script>
-            function checkinput() {
+            function checkInput() {
                 const elements = document.getElementsByClassName("input_cred")
                 const button = document.getElementById("submit")
                 if (elements[0].value.length > 0 && elements[1].value.length > 0) {
@@ -29,6 +29,26 @@
                 } else {
                     button.setAttribute('disabled', '');
                 }
+            };
+            var error = '{{error}}';
+            if (error !== 'None') {
+                let divChild = document.createElement("div");
+                let target = document.getElementById("main");
+                divChild.innerHTML = error;
+                divChild.className = "error";
+                const targetStyle = getComputedStyle(target);
+                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                target.appendChild(divChild);
+            }
+            var success = '{{success}}';
+            if (success !== 'None') {
+                let divChild = document.createElement("div");
+                let target = document.getElementById("main");
+                divChild.innerHTML = success;
+                divChild.className = "success";
+                const targetStyle = getComputedStyle(target);
+                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                target.appendChild(divChild);
             }
         </script>
     </body>
