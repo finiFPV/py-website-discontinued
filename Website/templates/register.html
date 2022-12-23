@@ -10,45 +10,51 @@
     </head>
     <body>
         <div id="main">
-            <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
+            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
                 <h1>Register</h1>
                 <label for="user" class="subtitle" id="aa">Username</label>
                 <input type="text" name="user" class="input_cred" id="a" oninput="checkUser()"><br>
                 <label for="pass" class="subtitle" id="bb">Password</label>
-                <input type="password" name="pass" class="input_cred" id="b" oninput="checkPswd()"><br>
+                <input type="password" name="pass" class="input_cred" id="b" oninput="checkPswd()" onfocus="checkPswd()"><br>
                 <div id="pswd_div">
-                    <span class="pswd_req" id="pswd_spaces">✔️ Doesn't contain any spaces</span>
-                    <br>
-                    <span class="pswd_req" id="pswd_min_char">❌ At least 6 characters long</span>
-                    <br>
-                    <span class="pswd_req" id="pswd_big_char">❌ Contains an upper case letter</span>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_spaces"></div>Doesn't contain any spaces
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_min_char"></div>At least 8 characters long
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_big_char"></div>Contains an upper case letter
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_sml_char"></div>Contains a lower case letter
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_spc_char"></div>Contains a number or special character
+                    </div>
                 </div>
                 <input type="submit" name="method" value="Register Now" id="register" disabled>
                 <input type="submit" name="method" value="Back" id="submit">
             </form>
+            <div id="loading_outer">
+                <div id="loading"></div>
+            </div>
         </div>
         <script>
-            function displayError(error, id) {
-                let divChild = document.createElement("div");
-                let target = document.getElementById("main");
-                divChild.innerHTML = error;
-                divChild.className = "error";
-                divChild.id = id;
-                const targetStyle = getComputedStyle(target);
-                console.log(parseInt(targetStyle.width) - 15 + "px")
-                target.appendChild(divChild);
-            }
             var userFieldIsOk = false
             var pswdFieldIsOk = false
             var errorExists = false
+
             function cheackButton() {
                 const button = document.getElementById("register")
                 if (userFieldIsOk == true && pswdFieldIsOk == true) {
                     button.removeAttribute('disabled');
-                } else {
+                }
+                else {
                     button.setAttribute('disabled', '');
                 }
             }
+
             function checkUser() {
                 const elements = document.getElementsByClassName("input_cred")
                 const errorDiv = document.getElementById('user_has_spaces')
@@ -57,65 +63,104 @@
                 if (!spaces && errorExists == false) {
                     displayError("Username can't contain spaces!", 'user_has_spaces')
                     errorExists = true
-                } else if (spaces && errorExists == true) {
+                }
+                else if (spaces && errorExists == true) {
                     errorExists = false
                     errorDiv.parentNode.removeChild(errorDiv);
                 }
                 if (lenght && spaces) {
                     userFieldIsOk = true
-                } else {
+                }
+                else {
                     userFieldIsOk = false
                 }
                 cheackButton()
             }
+
             function checkPswd() {
                 const elements = document.getElementsByClassName("input_cred")
                 const spaces = elements[1].value.includes(' ') == false
-                const lenght = elements[1].value.length >= 6
-                var bigLetter = false
-                for (let i = 0; i < elements[1].value.length; i++) {if (elements[1].value[i] === elements[1].value[i].toUpperCase()) {bigLetter = true; break}}
-                if (spaces) {
-                    const target = document.getElementById('pswd_spaces')
-                    target.innerHTML = "✔️ Doesn't contain any spaces"
-                } else {
-                    const target = document.getElementById('pswd_spaces')
-                    target.innerHTML = "❌ Doesn't contain any spaces"
+                const lenght = elements[1].value.length >= 8
+                const pswdDiv = document.getElementById('pswd_div')
+                const bigLetter = /[A-Z]/.test(elements[1].value)
+                const smallLetter = /[a-z]/.test(elements[1].value)
+                const specialChar = /\d/.test(elements[1].value) || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]°/.test(elements[1].value)
+
+                function check_crit(dot, variable) {
+                    if (variable) {
+                        dot.setAttribute('style', 'background-color: #00ffaad8;');
+                        dot.parentNode.setAttribute('style', 'color: #00ffaad8;')
+                    }
+                    else {
+                        dot.setAttribute('style', 'background-color: #ff4b4bd8;');
+                        dot.parentNode.setAttribute('style', 'color: #ff4b4bd8;')
+                    }
                 }
-                if (lenght) {
-                    const target = document.getElementById('pswd_min_char')
-                    target.innerHTML = "✔️ At least 6 characters long"
-                } else {
-                    const target = document.getElementById('pswd_min_char')
-                    target.innerHTML = "❌ At least 6 characters long"
-                }
-                if (bigLetter) {
-                    const target = document.getElementById('pswd_big_char')
-                    target.innerHTML = "✔️ Contains an upper case letter"
-                } else {
-                    const target = document.getElementById('pswd_big_char')
-                    target.innerHTML = "❌ Contains an upper case letter"
-                }
-                if (spaces && lenght && bigLetter) {
+
+                var dot = document.querySelector('#pswd_spaces');
+                check_crit(dot, spaces)
+                dot = document.querySelector('#pswd_min_char')
+                check_crit(dot, lenght)
+                dot = document.querySelector('#pswd_big_char');
+                check_crit(dot, bigLetter)
+                dot = document.querySelector('#pswd_sml_char');
+                check_crit(dot, smallLetter)
+                dot = document.querySelector('#pswd_spc_char');
+                check_crit(dot, specialChar)
+
+                if (spaces && lenght && bigLetter && smallLetter && specialChar) {
                     pswdFieldIsOk = true
-                } else {
+                    pswdDiv.setAttribute('style', 'border-color: #00ffaad8')
+                }
+                else {
                     pswdFieldIsOk = false
+                    pswdDiv.setAttribute('style', 'border-color: #ff4b4bd8')
                 }
                 cheackButton()
             };
-            var error = '{{error}}';
-            if (error !== 'None') {
-                displayError(error, 'outer_error')
-            };
-            var success = '{{success}}';
-            if (success !== 'None') {
+
+            var error = '{{ error }}';
+            var success = '{{ success }}';
+            function displayError(error, className) {
                 let divChild = document.createElement("div");
                 let target = document.getElementById("main");
-                divChild.innerHTML = success;
-                divChild.className = "success";
+                divChild.innerHTML = error;
+                divChild.className = className;
                 const targetStyle = getComputedStyle(target);
                 divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
                 target.appendChild(divChild);
+            }
+            if (error !== 'None') {
+                displayError(error, 'error')
             };
+            if (success !== 'None') {
+                displayError(success, 'success')
+            };
+
+            const form = document.getElementById("form");
+            form.addEventListener('submit', function(event) {
+                const targetStyle = getComputedStyle(form);
+                const loading = document.getElementById("loading");
+                const loading_outer = document.getElementById("loading_outer");
+                loading_outer.style.width = parseInt(targetStyle.width) + "px";
+                loading_outer.style.height = parseInt(targetStyle.height) + "px";
+                if (parseInt(targetStyle.width) < parseInt(targetStyle.height)) {
+                    loading.style.width = parseInt(targetStyle.width) / 3 + "px";
+                    loading.style.height = parseInt(targetStyle.width) / 3 + "px";
+                }
+                else {
+                    loading.style.width = parseInt(targetStyle.height) / 3 + "px";
+                    loading.style.height = parseInt(targetStyle.height) / 3 + "px";
+                }
+                loading.style.display = 'block';
+                if (success !== 'None') {
+                    document.getElementsByClassName('success')[0].style.display = 'none';
+                }
+                if (error !== 'None') {
+                    document.getElementsByClassName('error')[0].style.display = 'none';
+                }
+                form.style.display = 'none';
+            });
         </script>
     </body>
 </html>

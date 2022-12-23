@@ -1,9 +1,11 @@
 #submit, #register {
     width: 110px;
 }
+
 #register {
     width: 214.5px;
 }
+
 #pswd_div {
     border: grey 1px solid;
     border-radius: 15px;
@@ -14,7 +16,62 @@
     padding-bottom: 3px;
     color: rgb(163, 163, 163);
     font-size: 15px;
+    transition: border-color 0.75s;
 }
+
 .pswd_req {
-    padding-left: 15px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    transition: color 0.75s;
+}
+
+.dot {
+    margin-top: 5px;
+    margin-right: 3px;
+    background-color: grey;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: background-color 0.75s;
+}
+
+#loading {
+    display: none;
+}
+
+#loading_outer {
+    display: flex;
+    align-items: center;
+}
+
+#loading {
+    margin: auto;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+#loading::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 7px solid #00ffaa;
+    animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+    100% {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0% {clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)}
+    25% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)}
+    50% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)}
+    75% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)}
+    100% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)}
 }
