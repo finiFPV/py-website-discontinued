@@ -21,7 +21,8 @@ class Account:
         def login(username, password):
             results = DB().search_user(username)
             if results[0] == False: return 404
-            else: return results
+            elif results[1]['pswd'] == password: return results
+            else: return 401
         @staticmethod
         def register(username, password):
             results = DB().search_user(username)

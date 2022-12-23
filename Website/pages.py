@@ -54,7 +54,12 @@ def handle_data():
         password = request.form['pass']
         results = Main.login(user, password)
         if results == 404:
+            reset_message()
             session['error'] = f'User: {user} not found!'
+            return redirect('/login')
+        elif results == 401:
+            reset_message()
+            session['error'] = f'Password for user is incorrect!'
             return redirect('/login')
         else: 
             response = make_response(redirect('/'))

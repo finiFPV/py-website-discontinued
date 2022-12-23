@@ -62,18 +62,22 @@ a {
 .error {
     color: #ff4b4b;
     text-align: center;
-    text-shadow: 0 0 15px #ff4b4bb4;
     margin: auto;
     margin-bottom: 15px;
     margin-top: -15px;
-    width: calc(100% - 50px);
+    border: #ff4b4b96 2px solid;
+    border-radius: 5px;
+    padding: 7px;
+    background-color: #ff4b4b1c;
 }
 .success {
     color: #00ffaa;
     text-align: center;
-    text-shadow: 0 0 15px #00ffaa93;
     margin: auto;
     margin-bottom: 15px;
     margin-top: -15px;
-    width: calc(100% - 50px);
+    border: #00ffaa96 2px solid;
+    border-radius: 5px;
+    padding: 7px;
+    background-color: #00ffaa1c;
 }
