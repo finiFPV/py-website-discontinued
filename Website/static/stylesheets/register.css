@@ -4,3 +4,17 @@
 #register {
     width: 214.5px;
 }
+#pswd_div {
+    border: grey 1px solid;
+    border-radius: 15px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    width: 332px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: rgb(163, 163, 163);
+    font-size: 15px;
+}
+.pswd_req {
+    padding-left: 15px;
+}

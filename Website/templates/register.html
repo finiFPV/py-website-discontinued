@@ -13,15 +13,21 @@
             <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
                 <h1>Register</h1>
                 <label for="user" class="subtitle" id="aa">Username</label>
-                <input type="text" name="user" class="input_cred" id="a" oninput="checkInput()"><br>
+                <input type="text" name="user" class="input_cred" id="a" oninput="checkUser()"><br>
                 <label for="pass" class="subtitle" id="bb">Password</label>
-                <input type="password" name="pass" class="input_cred" id="b" oninput="checkInput()"><br>
+                <input type="password" name="pass" class="input_cred" id="b" oninput="checkPswd()"><br>
+                <div id="pswd_div">
+                    <span class="pswd_req" id="pswd_spaces">✔️ Doesn't contain any spaces</span>
+                    <br>
+                    <span class="pswd_req" id="pswd_min_char">❌ At least 6 characters long</span>
+                    <br>
+                    <span class="pswd_req" id="pswd_big_char">❌ Contains an upper case letter</span>
+                </div>
                 <input type="submit" name="method" value="Register Now" id="register" disabled>
                 <input type="submit" name="method" value="Back" id="submit">
             </form>
         </div>
         <script>
-            var has_spaces = false
             function displayError(error, id) {
                 let divChild = document.createElement("div");
                 let target = document.getElementById("main");
@@ -29,29 +35,72 @@
                 divChild.className = "error";
                 divChild.id = id;
                 const targetStyle = getComputedStyle(target);
-                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                console.log(parseInt(targetStyle.width) - 15 + "px")
                 target.appendChild(divChild);
             }
-            function checkInput() {
-                const elements = document.getElementsByClassName("input_cred")
+            var userFieldIsOk = false
+            var pswdFieldIsOk = false
+            var errorExists = false
+            function cheackButton() {
                 const button = document.getElementById("register")
-                const errorDiv = document.getElementById('user_has_spaces')
-                if (elements[0].value.length > 0 && elements[1].value.length > 0) {
+                if (userFieldIsOk == true && pswdFieldIsOk == true) {
                     button.removeAttribute('disabled');
                 } else {
                     button.setAttribute('disabled', '');
                 }
-                if (elements[0].value.includes(' ') == true && errorDiv == null) {
+            }
+            function checkUser() {
+                const elements = document.getElementsByClassName("input_cred")
+                const errorDiv = document.getElementById('user_has_spaces')
+                const lenght = elements[0].value.length > 0
+                const spaces = elements[0].value.includes(' ') == false
+                if (!spaces && errorExists == false) {
                     displayError("Username can't contain spaces!", 'user_has_spaces')
-                    has_spaces = true
-                    button.setAttribute('disabled', '');
-                } else if (has_spaces == true && elements[0].value.includes(' ') == false) {
-                    has_spaces = false
-                    if (elements[0].value.length > 0 && elements[1].value.length > 0) {
-                        button.removeAttribute('disabled');
-                    }
+                    errorExists = true
+                } else if (spaces && errorExists == true) {
+                    errorExists = false
                     errorDiv.parentNode.removeChild(errorDiv);
                 }
+                if (lenght && spaces) {
+                    userFieldIsOk = true
+                } else {
+                    userFieldIsOk = false
+                }
+                cheackButton()
+            }
+            function checkPswd() {
+                const elements = document.getElementsByClassName("input_cred")
+                const spaces = elements[1].value.includes(' ') == false
+                const lenght = elements[1].value.length >= 6
+                var bigLetter = false
+                for (let i = 0; i < elements[1].value.length; i++) {if (elements[1].value[i] === elements[1].value[i].toUpperCase()) {bigLetter = true; break}}
+                if (spaces) {
+                    const target = document.getElementById('pswd_spaces')
+                    target.innerHTML = "✔️ Doesn't contain any spaces"
+                } else {
+                    const target = document.getElementById('pswd_spaces')
+                    target.innerHTML = "❌ Doesn't contain any spaces"
+                }
+                if (lenght) {
+                    const target = document.getElementById('pswd_min_char')
+                    target.innerHTML = "✔️ At least 6 characters long"
+                } else {
+                    const target = document.getElementById('pswd_min_char')
+                    target.innerHTML = "❌ At least 6 characters long"
+                }
+                if (bigLetter) {
+                    const target = document.getElementById('pswd_big_char')
+                    target.innerHTML = "✔️ Contains an upper case letter"
+                } else {
+                    const target = document.getElementById('pswd_big_char')
+                    target.innerHTML = "❌ Contains an upper case letter"
+                }
+                if (spaces && lenght && bigLetter) {
+                    pswdFieldIsOk = true
+                } else {
+                    pswdFieldIsOk = false
+                }
+                cheackButton()
             };
             var error = '{{error}}';
             if (error !== 'None') {
