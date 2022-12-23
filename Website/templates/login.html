@@ -24,32 +24,58 @@
             function checkInput() {
                 const elements = document.getElementsByClassName("input_cred")
                 const button = document.getElementById("submit")
-                if (elements[0].value.length > 0 && elements[1].value.length > 0) {
+                const lenght = elements[0].value.length > 0 && elements[1].value.length > 0
+                if (lenght) {
                     button.removeAttribute('disabled');
-                } else {
+                }
+                else {
                     button.setAttribute('disabled', '');
                 }
             };
-            var error = '{{error}}';
-            if (error !== 'None') {
+
+            var error = '{{ error }}';
+            var success = '{{ success}}';
+            function displayError(error, className) {
                 let divChild = document.createElement("div");
                 let target = document.getElementById("main");
                 divChild.innerHTML = error;
-                divChild.className = "error";
+                divChild.className = className;
                 const targetStyle = getComputedStyle(target);
                 divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
                 target.appendChild(divChild);
             }
-            var success = '{{success}}';
+            if (error !== 'None') {
+                displayError(error, 'error')
+            };
             if (success !== 'None') {
-                let divChild = document.createElement("div");
-                let target = document.getElementById("main");
-                divChild.innerHTML = success;
-                divChild.className = "success";
-                const targetStyle = getComputedStyle(target);
-                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
-                target.appendChild(divChild);
-            }
+                displayError(success, 'success')
+            };
+            
+            const form = document.getElementById("form");
+            form.addEventListener('submit', function(event) {
+                const form = document.getElementById("form");
+                const targetStyle = getComputedStyle(form);
+                const loading = document.getElementById("loading");
+                const loading_outer = document.getElementById("loading_outer");
+                loading_outer.style.width = parseInt(targetStyle.width) + "px";
+                loading_outer.style.height = parseInt(targetStyle.height) + "px";
+                if (parseInt(targetStyle.width) < parseInt(targetStyle.height)) {
+                    loading.style.width = parseInt(targetStyle.width) / 3 + "px";
+                    loading.style.height = parseInt(targetStyle.width) / 3 + "px";
+                }
+                else {
+                    loading.style.width = parseInt(targetStyle.height) / 3 + "px";
+                    loading.style.height = parseInt(targetStyle.height) / 3 + "px";
+                }
+                loading.style.display = 'block';
+                if (success !== 'None') {
+                    document.getElementsByClassName('success')[0].style.display = 'none';
+                }
+                if (error !== 'None') {
+                    document.getElementsByClassName('error')[0].style.display = 'none';
+                }
+                form.style.display = 'none';
+            });
         </script>
     </body>
 </html>

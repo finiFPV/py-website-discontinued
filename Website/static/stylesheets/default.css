@@ -6,7 +6,7 @@ body {
     overflow: hidden;
     height: 100vh;
     display: flex;
-    
+
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -14,12 +14,16 @@ body {
     -o-user-select: none;
     user-select: none;
 }
+
 #main {
     background-color: rgba(31, 31, 31, 0.8);
     border-radius: 15px;
     padding: 0 30px 0 30px;
 }
+
 body:not(.user-is-tabbing) button:focus,
 body:not(.user-is-tabbing) select:focus,
 body:not(.user-is-tabbing) input:focus,
-body:not(.user-is-tabbing) textarea:focus {outline: none}
+body:not(.user-is-tabbing) textarea:focus {
+    outline: none
+}
