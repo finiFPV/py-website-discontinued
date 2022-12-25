@@ -10,7 +10,7 @@ Main = Account.Main()
 @app.route("/", methods=["GET", "POST"])
 def main():
     if "Credentials" in request.cookies:
-        return make_response(f"Logged in! (Work in progress...)")
+        return make_response("Logged in! (Work in progress...)")
     else:
         return redirect("/login")
 
@@ -34,13 +34,14 @@ def register():
 
 
 @app.route("/handle_data", methods=["POST"])
-def handle_data():
+def handle_data() -> None:
+    
     def reset_message():
         try:
             for i in ["error", "success"]:
-                if session[i] != None:
+                if session[i] is not None:
                     session[i] = None
-        except:
+        except KeyError:
             pass
 
     method = request.form["method"]
@@ -65,7 +66,7 @@ def handle_data():
             return redirect("/login")
         elif results == 401:
             reset_message()
-            session["error"] = f"Password for user is incorrect!"
+            session["error"] = "Password for user is incorrect!"
             return redirect("/login")
         else:
             response = make_response(redirect("/"))

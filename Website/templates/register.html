@@ -3,19 +3,19 @@
     <head>
         <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/default.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/login.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/register.css') }}">
-        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/default.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/login.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/register.css')}}">
+        <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='/images/favicon.png')}}">
     </head>
     <body>
         <div id="main">
-            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
+            <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
                 <h1>Register</h1>
-                <label for="user" class="subtitle" id="aa">Username</label>
-                <input type="text" name="user" class="input_cred" id="a" oninput="checkUser()"><br>
-                <label for="pass" class="subtitle" id="bb">Password</label>
-                <input type="password" name="pass" class="input_cred" id="b" oninput="checkPswd()" onfocus="checkPswd()"><br>
+                <label for="user" class="subtitle">Username</label>
+                <input type="text" name="user" class="input_cred" id="user_input" oninput="checkUser()"><br>
+                <label for="pass" class="subtitle">Password</label>
+                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkPswd()" onfocus="checkPswd()"><br>
                 <div id="pswd_div">
                     <div class="pswd_req">
                         <div class="dot" id="pswd_spaces"></div>Doesn't contain any spaces
@@ -46,7 +46,7 @@
             var errorExists = false
 
             function cheackButton() {
-                const button = document.getElementById("register")
+                let button = document.getElementById("register")
                 if (userFieldIsOk == true && pswdFieldIsOk == true) {
                     button.removeAttribute('disabled');
                 }
@@ -56,12 +56,12 @@
             }
 
             function checkUser() {
-                const elements = document.getElementsByClassName("input_cred")
-                const errorDiv = document.getElementById('user_has_spaces')
-                const lenght = elements[0].value.length > 0
-                const spaces = elements[0].value.includes(' ') == false
+                let user_input = document.getElementById("user_input")
+                let errorDiv = document.getElementById('user_has_spaces')
+                let lenght = user_input.value.length > 0
+                let spaces = user_input.value.includes(' ') == false
                 if (!spaces && errorExists == false) {
-                    displayError("Username can't contain spaces!", 'user_has_spaces')
+                    displayError("Username can't contain spaces!", 'error', id='user_has_spaces')
                     errorExists = true
                 }
                 else if (spaces && errorExists == true) {
@@ -78,56 +78,55 @@
             }
 
             function checkPswd() {
-                const elements = document.getElementsByClassName("input_cred")
-                const spaces = elements[1].value.includes(' ') == false
-                const lenght = elements[1].value.length >= 8
-                const pswdDiv = document.getElementById('pswd_div')
-                const bigLetter = /[A-Z]/.test(elements[1].value)
-                const smallLetter = /[a-z]/.test(elements[1].value)
-                const specialChar = /\d/.test(elements[1].value) || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]°/.test(elements[1].value)
+                let pswd_input = document.getElementById("pswd_input");
+                let spaces = pswd_input.value.includes(' ') == false;
+                let lenght = pswd_input.value.length >= 8;
+                let pswdDiv = document.getElementById('pswd_div');
+                let bigLetter = /[A-Z]/.test(pswd_input.value);
+                let smallLetter = /[a-z]/.test(pswd_input.value);
+                let specialChar = /\d/.test(pswd_input.value) || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]°/.test(pswd_input.value);
+                let criterias = {
+                    '#pswd_spaces': spaces,
+                    '#pswd_min_char': lenght,
+                    '#pswd_big_char': bigLetter,
+                    '#pswd_sml_char': smallLetter,
+                    '#pswd_spc_char': specialChar
+                }
 
-                function check_crit(dot, variable) {
-                    if (variable) {
+                for (criteria in criterias) {
+                    let dot = document.querySelector(criteria);
+                    if (criterias[criteria]) {
                         dot.setAttribute('style', 'background-color: #00ffaad8;');
-                        dot.parentNode.setAttribute('style', 'color: #00ffaad8;')
+                        dot.parentNode.setAttribute('style', 'color: #00ffaad8;');
                     }
                     else {
                         dot.setAttribute('style', 'background-color: #ff4b4bd8;');
-                        dot.parentNode.setAttribute('style', 'color: #ff4b4bd8;')
-                    }
-                }
-
-                var dot = document.querySelector('#pswd_spaces');
-                check_crit(dot, spaces)
-                dot = document.querySelector('#pswd_min_char')
-                check_crit(dot, lenght)
-                dot = document.querySelector('#pswd_big_char');
-                check_crit(dot, bigLetter)
-                dot = document.querySelector('#pswd_sml_char');
-                check_crit(dot, smallLetter)
-                dot = document.querySelector('#pswd_spc_char');
-                check_crit(dot, specialChar)
+                        dot.parentNode.setAttribute('style', 'color: #ff4b4bd8;');
+                    };
+                };
 
                 if (spaces && lenght && bigLetter && smallLetter && specialChar) {
-                    pswdFieldIsOk = true
-                    pswdDiv.setAttribute('style', 'border-color: #00ffaad8')
+                    pswdFieldIsOk = true;
+                    pswdDiv.setAttribute('style', 'border-color: #00ffaad8');
                 }
                 else {
-                    pswdFieldIsOk = false
-                    pswdDiv.setAttribute('style', 'border-color: #ff4b4bd8')
-                }
-                cheackButton()
+                    pswdFieldIsOk = false;
+                    pswdDiv.setAttribute('style', 'border-color: #ff4b4bd8');
+                };
+                cheackButton();
             };
 
-            var error = '{{ error }}';
-            var success = '{{ success }}';
-            function displayError(error, className) {
+            let error = '{{error}}';
+            let success = '{{success}}';
+            function displayError(error, className, id=null) {
                 let divChild = document.createElement("div");
                 let target = document.getElementById("main");
                 divChild.innerHTML = error;
+                if (id != null) {
+                    divChild.id = id;
+                };
                 divChild.className = className;
-                const targetStyle = getComputedStyle(target);
-                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                divChild.style.width = parseInt(getComputedStyle(target).width) - 10 + "px";
                 target.appendChild(divChild);
             }
             if (error !== 'None') {
@@ -137,11 +136,11 @@
                 displayError(success, 'success')
             };
 
-            const form = document.getElementById("form");
+            let form = document.getElementById("form");
             form.addEventListener('submit', function(event) {
-                const targetStyle = getComputedStyle(form);
-                const loading = document.getElementById("loading");
-                const loading_outer = document.getElementById("loading_outer");
+                let targetStyle = getComputedStyle(form);
+                let loading = document.getElementById("loading");
+                let loading_outer = document.getElementById("loading_outer");
                 loading_outer.style.width = parseInt(targetStyle.width) + "px";
                 loading_outer.style.height = parseInt(targetStyle.height) + "px";
                 if (parseInt(targetStyle.width) < parseInt(targetStyle.height)) {

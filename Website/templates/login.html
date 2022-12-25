@@ -3,60 +3,57 @@
     <head>
         <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/default.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheets/login.css') }}">
-        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/stylesheets/default.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/stylesheets/login.css')}}">
+        <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/images/favicon.png')}}">
     </head>
     <body>
         <div id="main">
-            <form action="{{ url_for('app.handle_data') }}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded">
+            <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
                 <h1>Login</h1>
-                <label for="user" class="subtitle" id="aa">Username</label>
-                <input type="text" name="user" class="input_cred" id="a" oninput="checkInput()"><br>
-                <label for="pass" class="subtitle" id="bb">Password</label>
-                <input type="password" name="pass" class="input_cred" id="b" oninput="checkInput()"><br>
-                <a href="{{ url_for('app.handle_data') }}">Forgot Username or Password</a><br>
+                <label for="user" class="subtitle">Username</label>
+                <input type="text" name="user" class="input_cred" oninput="checkInput()"><br>
+                <label for="pass" class="subtitle">Password</label>
+                <input type="password" name="pass" class="input_cred" oninput="checkInput()"><br>
+                <!-- <a href="{{url_for('app.handle_data')}}">Forgot Username or Password</a><br> -->
                 <input type="submit" name="method" value="Login" id="submit" disabled>
                 <input type="submit" name="method" value="Register" id="register">
             </form>
         </div>
         <script>
             function checkInput() {
-                const elements = document.getElementsByClassName("input_cred")
-                const button = document.getElementById("submit")
-                const lenght = elements[0].value.length > 0 && elements[1].value.length > 0
-                if (lenght) {
+                let elements = document.getElementsByClassName("input_cred");
+                let button = document.getElementById("submit");
+                if (elements[0].value.length > 0 && elements[1].value.length > 0) {
                     button.removeAttribute('disabled');
                 }
                 else {
                     button.setAttribute('disabled', '');
-                }
+                };
             };
 
-            var error = '{{ error }}';
-            var success = '{{ success}}';
+            let error = '{{error}}';
+            let success = '{{success}}';
             function displayError(error, className) {
                 let divChild = document.createElement("div");
                 let target = document.getElementById("main");
                 divChild.innerHTML = error;
                 divChild.className = className;
-                const targetStyle = getComputedStyle(target);
-                divChild.style.width = parseInt(targetStyle.width) - 10 + "px";
+                divChild.style.width = parseInt(getComputedStyle(target).width) - 10 + "px";
                 target.appendChild(divChild);
             }
             if (error !== 'None') {
-                displayError(error, 'error')
+                displayError(error, 'error');
             };
             if (success !== 'None') {
-                displayError(success, 'success')
+                displayError(success, 'success');
             };
             
-            const form = document.getElementById("form");
+            let form = document.getElementById("form");
             form.addEventListener('submit', function(event) {
-                const form = document.getElementById("form");
-                const targetStyle = getComputedStyle(form);
-                const loading = document.getElementById("loading");
-                const loading_outer = document.getElementById("loading_outer");
+                let targetStyle = getComputedStyle(form);
+                let loading = document.getElementById("loading");
+                let loading_outer = document.getElementById("loading_outer");
                 loading_outer.style.width = parseInt(targetStyle.width) + "px";
                 loading_outer.style.height = parseInt(targetStyle.height) + "px";
                 if (parseInt(targetStyle.width) < parseInt(targetStyle.height)) {
@@ -66,14 +63,14 @@
                 else {
                     loading.style.width = parseInt(targetStyle.height) / 3 + "px";
                     loading.style.height = parseInt(targetStyle.height) / 3 + "px";
-                }
+                };
                 loading.style.display = 'block';
                 if (success !== 'None') {
                     document.getElementsByClassName('success')[0].style.display = 'none';
-                }
+                };
                 if (error !== 'None') {
                     document.getElementsByClassName('error')[0].style.display = 'none';
-                }
+                };
                 form.style.display = 'none';
             });
         </script>
