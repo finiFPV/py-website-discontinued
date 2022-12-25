@@ -62,7 +62,7 @@ def handle_data() -> None:
         results = Main.login(user, password)
         if results == 404:
             reset_message()
-            session["error"] = f"User: {user} not found!"
+            session["error"] = f'User: "{user}" not found!'
             return redirect("/login")
         elif results == 401:
             reset_message()
