@@ -5,10 +5,10 @@ if __name__ == "__main__":
     from pages import app
     from os import getcwd
 
-    website_name = 'fini8'
+    WEBSITE = 'fini8'
 
     root = Flask(__name__)
     root.config["SECRET_KEY"] = token_urlsafe(16)
     root.register_blueprint(app, url_prefix="/")
-    basicConfig(filename=f"{getcwd()}\\{website_name}.log", level=DEBUG)
+    basicConfig(filename=f"{getcwd()}\\{WEBSITE}.log", level=DEBUG)
     root.run(host="127.0.0.1")
