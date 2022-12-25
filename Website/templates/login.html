@@ -5,6 +5,8 @@
         <meta name="description" content="Login page for website fini8.eu and the main/home page for users who are not registered.">
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/stylesheets/default.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/stylesheets/login.css')}}">
+        <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/images/favicon.png')}}">
         <script>
             window.error = '{{error}}';
             window.success = '{{success}}';
@@ -26,8 +28,6 @@
                 <div id="loading"></div>
             </div>
         </div>
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/stylesheets/login.css')}}">
-        <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/images/favicon.png')}}">
         <script src="{{url_for('static',filename='/scripts/login.js')}}"></script>
     </body>
 </html>
