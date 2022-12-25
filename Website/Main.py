@@ -10,5 +10,7 @@ if __name__ == "__main__":
     root = Flask(__name__)
     root.config["SECRET_KEY"] = token_urlsafe(16)
     root.register_blueprint(app, url_prefix="/")
+
     basicConfig(filename=f"{getcwd()}\\{WEBSITE}.log", level=DEBUG)
+
     root.run(host="127.0.0.1")
