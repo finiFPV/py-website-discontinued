@@ -17,9 +17,9 @@
         <div id="main">
             <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
                 <h1>Register</h1>
-                <label for="user" class="subtitle">Username</label>
+                <label for="user_input" class="subtitle">Username</label>
                 <input type="text" name="user" class="input_cred" id="user_input" oninput="checkUser()"><br>
-                <label for="pass" class="subtitle">Password</label>
+                <label for="pswd_input" class="subtitle">Password</label>
                 <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkPswd()" onfocus="checkPswd()"><br>
                 <div id="pswd_div">
                     <div class="pswd_req">

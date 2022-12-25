@@ -16,10 +16,10 @@
         <div id="main">
             <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
                 <h1>Login</h1>
-                <label for="user" class="subtitle">Username</label>
-                <input type="text" name="user" class="input_cred" oninput="checkInput()"><br>
-                <label for="pass" class="subtitle">Password</label>
-                <input type="password" name="pass" class="input_cred" oninput="checkInput()"><br>
+                <label for="user_input" class="subtitle">Username</label>
+                <input type="text" name="user" class="input_cred" id="user_input" oninput="checkInput()"><br>
+                <label for="pswd_input" class="subtitle">Password</label>
+                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkInput()"><br>
                 <!-- <a href="{{url_for('app.handle_data')}}">Forgot Username or Password</a><br> -->
                 <input type="submit" name="method" value="Login" id="submit" disabled>
                 <input type="submit" name="method" value="Register" id="register">
