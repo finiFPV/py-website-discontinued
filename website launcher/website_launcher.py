@@ -5,7 +5,7 @@ def download_website_files():
     from os import getcwd
 
     repo = Github('***REMOVED***').get_user().get_repo('website')
-    branch = 'development'
+    branch = 'master'
     contents = repo.get_contents('/Website', ref=branch)
     main_path = f'{getcwd()}/website'
     media_filetypes = ('.png', '.jpeg', '.ico', '.gif')
