@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Registration page for website fini8.eu">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/default.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/login.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/stylesheets/register.css')}}">
+        <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='/images/favicon.png')}}">
+        <script>
+            window.error = '{{error}}';
+            window.success = '{{success}}';
+        </script>
+    </head>
+    <body>
+        <div id="main">
+            <form action="{{url_for('app.handle_data')}}" method="post" autocomplete="off" enctype="application/x-www-form-urlencoded" id="form">
+                <h1>Register</h1>
+                <label for="user_input" class="subtitle">Username</label>
+                <input type="text" name="user" class="input_cred" id="user_input" oninput="checkUser()"><br>
+                <label for="pswd_input" class="subtitle">Password</label>
+                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkPswd()" onfocus="checkPswd()"><br>
+                <div id="pswd_div">
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_spaces"></div>Doesn't contain any spaces
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_min_char"></div>At least 8 characters long
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_big_char"></div>Contains an upper case letter
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_sml_char"></div>Contains a lower case letter
+                    </div>
+                    <div class="pswd_req">
+                        <div class="dot" id="pswd_spc_char"></div>Contains a number or special character
+                    </div>
+                </div>
+                <input type="submit" name="method" value="Register Now" id="register" disabled>
+                <input type="submit" name="method" value="Back" id="submit">
+            </form>
+            <div id="loading_outer">
+                <div id="loading"></div>
+            </div>
+        </div>
+        <script src="{{url_for('static',filename='/scripts/register.js')}}"></script>
+    </body>
+</html>

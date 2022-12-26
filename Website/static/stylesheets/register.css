@@ -1,0 +1,39 @@
+#submit, #register {
+    width: 110px;
+}
+
+#register {
+    width: 214.5px;
+}
+
+#pswd_div {
+    border: grey 1px solid;
+    border-radius: 15px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    width: 332px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: rgb(163, 163, 163);
+    font-size: 15px;
+    transition: border-color 0.75s;
+}
+
+.pswd_req {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    transition: color 0.75s;
+}
+
+.dot {
+    margin-top: 5px;
+    margin-right: 3px;
+    background-color: grey;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: background-color 0.75s;
+}

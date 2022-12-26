@@ -1,11 +1,14 @@
 #main {
     width: fit-content;
+    justify-content: center
 }
+
 h1 {
     color: #ffffff;
     font-size: 38.5px;
     font-weight: 700;
 }
+
 input {
     border: none;
     border-bottom: solid #8f8f8f 1px;
@@ -15,6 +18,7 @@ input {
     height: 38.5px;
     width: 330px;
 }
+
 #submit, #register {
     width: 214.5px;
     border: none;
@@ -23,38 +27,69 @@ input {
     transition: all 1s;
     margin-right: 5.5px;
 }
+
 #register {
     width: 110px;
 }
+
 #submit:enabled, #register:enabled {
     box-shadow: 2.2px 2.2px 7.7px #38d39f70;
     background: #38d39f;
     color: #ffffffcc;
     cursor: pointer;
 }
+
 #submit:disabled, #register:disabled {
     background: #333333;
     color: #ffffff28;
     cursor: not-allowed;
 }
+
 #submit:enabled:hover, #register:enabled:hover {
     color: #ffffff;
     box-shadow: none;
 }
+
 .input_cred {
     position: relative;
     top: 7.7px;
 }
+
 .subtitle {
     position: absolute;
     padding-left: 5.5px;
     font-size: 12.1px;
     color: #b1b1b14d;
 }
+
 a {
     font-size: 12.1px;
     cursor: pointer;
     position: relative;
     bottom: 17px;
     color: #38d39fd8;
+}
+
+.error {
+    color: #ff4b4b;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    border: #ff4b4b96 2px solid;
+    border-radius: 5px;
+    padding: 7px;
+    background-color: #ff4b4b1c;
+}
+
+.success {
+    color: #00ffaa;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    border: #00ffaa96 2px solid;
+    border-radius: 5px;
+    padding: 7px;
+    background-color: #00ffaa1c;
 }
