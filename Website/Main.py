@@ -3,7 +3,6 @@ if __name__ == "__main__":
     from secrets import token_urlsafe
     from flask import Flask
     from pages import app
-    from os import getcwd
 
     WEBSITE = 'fini8'
 
@@ -11,6 +10,6 @@ if __name__ == "__main__":
     root.config["SECRET_KEY"] = token_urlsafe(16)
     root.register_blueprint(app, url_prefix="/")
 
-    basicConfig(filename=f"{getcwd()}\\{WEBSITE}.log", level=DEBUG)
+    basicConfig(filename=f"{WEBSITE}.log", level=DEBUG)
 
     root.run(host="127.0.0.1")
