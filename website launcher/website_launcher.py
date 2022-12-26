@@ -1,13 +1,12 @@
 def download_website_files():
     from github import Github
-    from os import getcwd, path, makedirs
+    from os import path, makedirs
     from shutil import rmtree
 
     repo = Github('***REMOVED***').get_user().get_repo('website')
     branch = 'development'
     contents = repo.get_contents('/Website', ref=branch)
-    cwd = getcwd()
-    main_path = f'{cwd}\\website_code'
+    main_path = '~\\website'
     media_filetypes = ('.png', '.jpeg', '.ico', '.gif')
 
     def get(contents, sys_path):
@@ -34,12 +33,9 @@ def download_website_files():
 
 if __name__ == '__main__':
     from subprocess import call
-    from os import getcwd
-
-    cwd = getcwd()
 
     call(['python', '-m', 'pip', 'install', '--upgrade', 'pip'])
     call(['pip', 'install', 'PyGithub'])
     download_website_files()
-    call(['pip', 'install', '-r', f'{cwd}/website_code/requirments.txt'])
-    call(['python', f'{cwd}/website_code/Main.py'])
+    call(['pip', 'install', '-r', '~\\website\\requirments.txt'])
+    call(['python', '~\\website_code\\Main.py'])
