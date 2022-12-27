@@ -20,7 +20,11 @@
                 <label for="user_input" class="subtitle">Username</label>
                 <input type="text" name="user" class="input_cred" id="user_input" oninput="checkUser()"><br>
                 <label for="pswd_input" class="subtitle">Password</label>
-                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkPswd()" onfocus="checkPswd()"><br>
+                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkPswd()" onfocus="checkPswd()">
+                <button onclick="event.preventDefault()" onclick="reveal_pswd()" id="reveal_pswd">
+                    <img id="pswd_reveal_img" src="{{url_for('static', filename='/images/eye.png')}}">
+                    <img id="pswd_reveal_img_crossed" src="{{url_for('static', filename='/images/eye-crossed.png')}}" style="display: none;">
+                </button><br>
                 <div id="pswd_div">
                     <div class="pswd_req">
                         <div class="dot" id="pswd_spaces"></div>Doesn't contain any spaces

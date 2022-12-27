@@ -146,3 +146,19 @@ form.addEventListener('submit', function(event) {
     }
     form.style.display = 'none';
 });
+
+function reveal_pswd() {
+    let target = document.getElementById('pswd_input')
+    let img = document.getElementById('pswd_reveal_img')
+    let img_crossed = document.getElementById('pswd_reveal_img_crossed')
+    if (target.type == 'password') {
+        target.type = 'text';
+        img.setAttribute('style', 'display: none;')
+        img_crossed.setAttribute('style', '')
+    } else {
+        target.type = 'password';
+        img.setAttribute('style', '')
+        img_crossed.setAttribute('style', 'display: none;')
+    }
+}
+document.getElementById('reveal_pswd').addEventListener('click', reveal_pswd);

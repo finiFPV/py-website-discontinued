@@ -65,3 +65,21 @@ body:not(.user-is-tabbing) textarea:focus {
     75% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)}
     100% {clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)}
 }
+
+#reveal_pswd {
+    background-color: transparent;
+    border: none;
+    position: relative;
+    top: 15px;
+    right: 35px;
+    margin-right: -70px;
+}
+
+#reveal_pswd img {
+    width: 20px;
+}
+
+#pswd_reveal_img_crossed {
+    position: relative;
+    top: 2px;
+}

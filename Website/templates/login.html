@@ -19,7 +19,11 @@
                 <label for="user_input" class="subtitle">Username</label>
                 <input type="text" name="user" class="input_cred" id="user_input" oninput="checkInput()"><br>
                 <label for="pswd_input" class="subtitle">Password</label>
-                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkInput()"><br>
+                <input type="password" name="pass" class="input_cred" id="pswd_input" oninput="checkInput()">
+                <button onclick="event.preventDefault()" onclick="reveal_pswd()" id="reveal_pswd">
+                    <img id="pswd_reveal_img" src="{{url_for('static', filename='/images/eye.png')}}">
+                    <img id="pswd_reveal_img_crossed" src="{{url_for('static', filename='/images/eye-crossed.png')}}" style="display: none;">
+                </button><br>
                 <!-- <a href="{{url_for('app.handle_data')}}">Forgot Username or Password</a><br> -->
                 <input type="submit" name="method" value="Login" id="submit" disabled>
                 <input type="submit" name="method" value="Register" id="register">
