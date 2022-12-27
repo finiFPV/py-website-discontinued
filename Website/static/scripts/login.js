@@ -14,7 +14,7 @@ function displayError(error, className) {
     let target = document.getElementById("main");
     divChild.innerHTML = error;
     divChild.className = className;
-    divChild.style.width = parseInt(getComputedStyle(target).width) - 10 + "px";
+    divChild.style.width = parseInt(getComputedStyle(target).width) - 25 + "px";
     target.appendChild(divChild);
 }
 if (error !== 'None') {

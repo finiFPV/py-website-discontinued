@@ -112,7 +112,7 @@ function displayError(error, className, id=null) {
         divChild.id = id;
     };
     divChild.className = className;
-    divChild.style.width = parseInt(getComputedStyle(target).width) - 10 + "px";
+    divChild.style.width = parseInt(getComputedStyle(target).width) - 25 + "px";
     target.appendChild(divChild);
 }
 if (error !== 'None') {
