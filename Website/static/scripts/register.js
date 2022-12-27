@@ -1,6 +1,8 @@
-var userFieldIsOk = false
-var pswdFieldIsOk = false
-var errorExists = false
+let userFieldIsOk = false
+let pswdFieldIsOk = false
+let spacesErrorExists = false
+let takenErrorExists = false
+let xhr
 
 function cheackButton() {
     let button = document.getElementById("register")
@@ -14,16 +16,45 @@ function cheackButton() {
 
 function checkUser() {
     let user_input = document.getElementById("user_input")
-    let errorDiv = document.getElementById('user_has_spaces')
+    let spacesErrorDiv = document.getElementById('user_has_spaces')
+    let takenErrorDiv = document.getElementById('user_is_taken')
     let lenght = user_input.value.length > 0
     let spaces = user_input.value.includes(' ') == false
-    if (!spaces && errorExists == false) {
-        displayError("Username can't contain spaces!", 'error', id='user_has_spaces')
-        errorExists = true
+
+    if (xhr && xhr.readyState != 4) {
+        xhr.abort();
     }
-    else if (spaces && errorExists == true) {
-        errorExists = false
-        errorDiv.parentNode.removeChild(errorDiv);
+
+    xhr =$.ajax({
+        type: 'POST',
+        url: '/handle_data',
+        data: {
+            "method": "search_user",
+            "user": user_input.value
+        },
+        success: function(response) {
+            console.log(response);
+            if (response == '202' && takenErrorExists == true) {
+                takenErrorExists = false
+                if (takenErrorDiv) {
+                    takenErrorDiv.parentNode.removeChild(takenErrorDiv);
+                }
+            } 
+            else if (response == '403' && spacesErrorExists == false) {
+                takenErrorExists = true
+                displayError('Username: "' + user_input.value + '" is already taken!', 'error', id='user_is_taken')
+            }
+        }
+    });
+    if (!spaces && spacesErrorExists == false) {
+        displayError("Username: can't contain spaces!", 'error', id='user_has_spaces')
+        spacesErrorExists = true
+    }
+    else if (spaces && spacesErrorExists == true) {
+        spacesErrorExists = false
+        if (spacesErrorDiv) {
+            spacesErrorDiv.parentNode.removeChild(spacesErrorDiv);
+        }
     }
     if (lenght && spaces) {
         userFieldIsOk = true

@@ -12,4 +12,4 @@ if __name__ == "__main__":
 
     basicConfig(filename=f"{WEBSITE}.log", level=DEBUG)
 
-    root.run(host="127.0.0.1")
+    root.run(host="127.0.0.1", debug=True)

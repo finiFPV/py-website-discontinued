@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, make_response, session
-from functions import Account
+from functions import Account, DB
 from json import dumps
 
 app = Blueprint("app", "app")
@@ -89,3 +89,10 @@ def handle_data() -> None:
             if results == response[0]:
                 session[response[1]] = response[2]
                 return redirect(response[3])
+
+    elif method == "search_user":
+        results = DB().search_user(request.form["user"])
+        if results[0] is False:
+            return '202'
+        else:
+            return '403'
