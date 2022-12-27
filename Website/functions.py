@@ -1,8 +1,9 @@
+from pymongo import MongoClient
+from datetime import datetime
+
 class DB:
     def __init__(self, collection="Users"):
-        from pymongo import MongoClient
         self.client = MongoClient("***REMOVED***")["Website"][collection]
-
     def search_user(self, username):
         results = self.client.find({"user": username})
         results = [credentials for credentials in results]
@@ -13,9 +14,18 @@ class DB:
             user_found = False
             credentials = {}
         return user_found, credentials
-
+    def update_user(self, username, field, data):
+        self.client.update_one({'user': username}, {'$set': {field: data}})
     def insert_data(self, username, password):
-        self.client.insert_one({"user": username, "pswd": password})
+        self.client.insert_one({
+            "user": username,
+            "pswd": password,
+            "membership": None,
+            "admin": False,
+            "owner": False,
+            "last_login": None,
+            "reg_time": datetime.now().strftime("%Y.%m.%d %H:%M:%S")
+            })
 
 
 class Account:
@@ -26,6 +36,7 @@ class Account:
             if results[0] == False:
                 return 404
             elif results[1]["pswd"] == password:
+                DB().update_user(username, "last_login", datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
                 return results
             else:
                 return 401
