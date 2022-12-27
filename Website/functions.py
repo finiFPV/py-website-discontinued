@@ -40,10 +40,9 @@ class Account:
         @staticmethod
         def login(username, password):
             results = DB().search_user(username)
-            pswd = results[1]["pswd"]
-            if results[0] is False:
+            if results[0] == False:
                 return 404
-            elif compare_digest(pswd['hash'], pbkdf2_hmac('sha256', password.encode(), pswd['salt'], 100000)):
+            elif compare_digest(results[1]["pswd"]['hash'], pbkdf2_hmac('sha256', password.encode(), results[1]["pswd"]['salt'], 100000)):
                 DB().update_user(username, "last_login", datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
                 return results
             else:
