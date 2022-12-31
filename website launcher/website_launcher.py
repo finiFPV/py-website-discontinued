@@ -51,7 +51,7 @@ if __name__ == '__main__':
     copy2(f'{getcwd()}/website/configs/{confg_file}', f'{getcwd()}')
     if not ssl:
         rename(f'{getcwd()}/nginx_http.conf', f'{getcwd()}/nginx.conf')
-    copy2(f'{getcwd()}/nginx.conf', f'{getcwd()}/other')#/etc/nginx/nginx.conf')
+    copy2(f'{getcwd()}/nginx.conf', '/etc/nginx/nginx.conf')
     remove(f'{getcwd()}/nginx.conf')
     call(['systemctl', 'reload', 'nginx'])
     call(['python3', f'{getcwd()}/website/Main.py'])
