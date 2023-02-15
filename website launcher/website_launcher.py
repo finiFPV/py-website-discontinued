@@ -4,7 +4,7 @@ def download_website_files(branch):
     from shutil import rmtree
     from os import getcwd
 
-    repo = Github('***REMOVED***').get_user().get_repo('website')
+    repo = Github('').get_user().get_repo('website')
     contents = repo.get_contents('/Website', ref=branch)
     main_path = f'{getcwd()}/website'
     media_filetypes = ('.png', '.jpeg', '.ico', '.gif')

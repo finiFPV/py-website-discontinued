@@ -6,7 +6,7 @@ from os import urandom
 
 class DB:
     def __init__(self, collection="Users"):
-        self.client = MongoClient("***REMOVED***")["Website"][collection]
+        self.client = MongoClient("")["Website"][collection]
 
     def search_user(self, username):
         results = self.client.find({"user": username})
